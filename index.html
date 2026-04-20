@@ -1,0 +1,14 @@
+<html>
+    <head>
+        <title>Викторина</title>
+    </head>
+    <body> 
+        <h1>Выберите викторину:</h1>
+        <form method="post" action="/">
+            {% for id, name in victorinas %}
+                <p><input type="radio" name="victorina" value="{{id}}">{{name}}</p>
+            {% endfor %}
+            <p><input type="submit" value="летс гоу"></p> 
+        </form>
+    </body>
+</html>
