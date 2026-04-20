@@ -27,11 +27,14 @@ def set_question(question):
     id = question[0]
     vopros = question[1]
     right = question[2]
-    wrong = question[3].split('~').append(right)
+    wrong = question[3].split('~')
+    wrong.append(right)
     shuffle(wrong)
     return render_template('voprosi.html', q_id = id, vopros = vopros, answers = wrong)
 
 def test():
+    if request.method == 'post':
+        check()
     next_question = db.execute_data(NEXT_QUESTION_ID, (session['last_question'],session['quiz_id']))
     print(next_question)
     if len(next_question) > 0:
@@ -42,6 +45,14 @@ def test():
 def result():
     return 'hehehhehehhehhehehehehe'
 
+
+def check():
+    answer = request.form.get('answer')
+    q_id = request.form.get('q_id')
+    right = db.execute_data(CHECK_RIGHT, (q_id, answer))
+    if len(right)>0 and right is not None:
+        session['total'] += 1
+    session['last_question'] = int(q_id) + 1
 
 
 

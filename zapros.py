@@ -38,6 +38,11 @@ SELECT quiz_content.id, question.question, question.right_txt, question.wrong
     AND quiz_content.id > ? AND quiz_content.quiz_id = ?
     ORDER BY quiz_content.id """
 
+CHECK_RIGHT = '''
+SELECT quiz_content.id, question.question, question.right_txt
+    FROM question, quiz_content
+    WHERE quiz_content.id = ? AND (question.right_txt LIKE ?)'''
+
 QUIZES = [
     ('Какой ты смешарик?'), 
     ('Какой ты якубович?'), 
